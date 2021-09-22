@@ -19,6 +19,8 @@ class Auth extends CI_Controller
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
 		$this->lang->load('auth');
+		$this->load->model('main_model');
+
 	}
 
 	/**
@@ -64,6 +66,14 @@ class Auth extends CI_Controller
 	 */
 	public function login()
 	{
+
+		$all_categories = $this->getAndSeparateCategories();
+		
+		$data['nav_categories'] = $all_categories['nav_categories'];
+		$data['categories'] = $all_categories['categories'];		
+
+
+
 		$this->data['title'] = $this->lang->line('login_heading');
 
 		// validate form input
@@ -110,6 +120,7 @@ class Auth extends CI_Controller
 				'type' => 'password',
 			];
 
+			$this->load->view('_partials/header', $data);
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
 		}
 	}
@@ -888,6 +899,25 @@ class Auth extends CI_Controller
 		{
 			return $view_html;
 		}
+	}
+
+	private function getAndSeparateCategories()
+	{
+
+		$all_categories = $this->main_model->getCategories();
+		
+		foreach ($all_categories as $category) {
+			if ($category['navigation_id'] == 0) {
+				$navigation_categories[] = $category;
+			} else {
+				$categories[] = $category;
+			}
+		}
+
+		$data['nav_categories'] = $navigation_categories;
+		$data['categories'] = $categories;
+
+		return $data;
 	}
 
 }

@@ -54,6 +54,13 @@ $route['default_controller'] = 'Main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['admin'] = 'admin/Admin';
+$route['admin/showcategories'] = 'admin/Admin/showCategories/';
+$route['admin/create'] = 'admin/Admin/create/';
+$route['admin/createcategory'] = 'admin/Admin/createcategory';
+
+
+
 
 $route['kategoria/(:any)'] = 'Main/productsCategory/$1';
 

@@ -1,4 +1,8 @@
 
+html, body{
+    background-color: #F4F3F3;
+}
+
 /* all */
 a {
     text-decoration: none;
@@ -13,6 +17,7 @@ a:hover{
 
 .header {
     background-color: #272727;
+
 }
 
 .header li {
@@ -52,6 +57,7 @@ a:hover{
 /* NAVIGATION */
 
 .navigation {
+    
     background-color: #0177bc;
 }
 

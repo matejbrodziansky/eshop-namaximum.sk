@@ -1,20 +1,18 @@
 <?php
 
+// include_once APPPATH . '/libraries/pdf.php';
 
 defined('BASEPATH') or exit('No direct script access allowed');
-class Main extends CI_Controller
+class Admin extends CI_Controller
 {
 
-	// public $navigation_categories;
-	// public $all_categories;
-	// public $categories;
 
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->helper(['url', 'typography', 'global', 'file']);
 
-		$this->load->model('main_model');
+		$this->load->model('admin_model');
 	}
 
 
@@ -22,36 +20,54 @@ class Main extends CI_Controller
 	{
 
 		$all_categories = $this->getAndSeparateCategories();
-		
+
 		$data['nav_categories'] = $all_categories['nav_categories'];
-		$data['categories'] = $all_categories['categories'];		
+		$data['categories'] = $all_categories['categories'];
 
 		$this->load->view('_partials/header', $data);
-		$this->load->view('home');
+		$this->load->view('admin/index');
 	}
 
-
-
-	public function productsCategory($slug)
+	public function showCategories()
 	{
-		
+
 		$all_categories = $this->getAndSeparateCategories();
-		
+
 		$data['nav_categories'] = $all_categories['nav_categories'];
-		$data['categories'] = $all_categories['categories'];		
-		$data['products'] = $slug;
-		
+		$data['categories'] = $all_categories['categories'];
+
 		$this->load->view('_partials/header', $data);
-		$this->load->view('products/category', $data);
+		$this->load->view('admin/show-category');
 	}
+
+	public function create()
+	{
+
+
+		if ($post = $this->input->post()) {
+
+		 $_id =	$this->admin_model->insertCategoryOrProduct($post['category'], $post);
+
+		}
+
+
+		$all_categories = $this->getAndSeparateCategories();
+
+		$data['nav_categories'] = $all_categories['nav_categories'];
+		$data['categories'] = $all_categories['categories'];
+
+		$this->load->view('_partials/header', $data);
+		$this->load->view('admin/add-category');
+	}
+
 
 
 
 	private function getAndSeparateCategories()
 	{
 
-		$all_categories = $this->main_model->getCategories();
-		
+		$all_categories = $this->admin_model->getCategories();
+
 		foreach ($all_categories as $category) {
 			if ($category['navigation_id'] == 0) {
 				$navigation_categories[] = $category;
@@ -65,29 +81,4 @@ class Main extends CI_Controller
 
 		return $data;
 	}
-
-	public function create()
-	{
-		// if(isset($_POST)){
-
-		if($post = $this->input->post()) {
-
-			pre_r($post);
-
-		}
-
-
-		$all_categories = $this->getAndSeparateCategories();
-		
-		$data['nav_categories'] = $all_categories['nav_categories'];
-		$data['categories'] = $all_categories['categories'];		
-
-		$this->load->view('_partials/header', $data);
-		$this->load->view('admin/add-category');
-	}
-
-
-
-
 }
-
