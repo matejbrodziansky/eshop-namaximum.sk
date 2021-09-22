@@ -1,5 +1,7 @@
 <?php 
 
+echo '<br>';
+echo '<hr>';
 echo $products;
 
 ?>
