@@ -12,6 +12,7 @@ class Main extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		
 		$this->load->helper(['url', 'typography', 'global', 'file']);
 
 		$this->load->model('main_model');
@@ -22,9 +23,9 @@ class Main extends CI_Controller
 	{
 
 		$all_categories = $this->getAndSeparateCategories();
-		
+
 		$data['nav_categories'] = $all_categories['nav_categories'];
-		$data['categories'] = $all_categories['categories'];		
+		$data['categories'] = $all_categories['categories'];
 
 		$this->load->view('_partials/header', $data);
 		$this->load->view('home');
@@ -34,13 +35,13 @@ class Main extends CI_Controller
 
 	public function productsCategory($slug)
 	{
-		
+
 		$all_categories = $this->getAndSeparateCategories();
-		
+
 		$data['nav_categories'] = $all_categories['nav_categories'];
-		$data['categories'] = $all_categories['categories'];		
+		$data['categories'] = $all_categories['categories'];
 		$data['products'] = $slug;
-		
+
 		$this->load->view('_partials/header', $data);
 		$this->load->view('products/category', $data);
 	}
@@ -51,7 +52,7 @@ class Main extends CI_Controller
 	{
 
 		$all_categories = $this->main_model->getCategories();
-		
+
 		foreach ($all_categories as $category) {
 			if ($category['navigation_id'] == 0) {
 				$navigation_categories[] = $category;
@@ -70,24 +71,18 @@ class Main extends CI_Controller
 	{
 		// if(isset($_POST)){
 
-		if($post = $this->input->post()) {
+		if ($post = $this->input->post()) {
 
 			pre_r($post);
-
 		}
 
 
 		$all_categories = $this->getAndSeparateCategories();
-		
+
 		$data['nav_categories'] = $all_categories['nav_categories'];
-		$data['categories'] = $all_categories['categories'];		
+		$data['categories'] = $all_categories['categories'];
 
 		$this->load->view('_partials/header', $data);
 		$this->load->view('admin/add-category');
 	}
-
-
-
-
 }
-

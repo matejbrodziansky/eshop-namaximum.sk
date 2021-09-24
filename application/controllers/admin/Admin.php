@@ -10,6 +10,15 @@ class Admin extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+
+		$this->load->library('ion_auth');
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group('admin')) {
+
+			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
+			redirect('/', 'refresh');
+		}
+
 		$this->load->helper(['url', 'typography', 'global', 'file']);
 
 		$this->load->model('admin_model');
@@ -18,6 +27,10 @@ class Admin extends CI_Controller
 
 	public function index()
 	{
+		$username = $this->session->userdata('username');
+
+
+		pre_r($username);
 
 		$all_categories = $this->getAndSeparateCategories();
 
@@ -63,7 +76,6 @@ class Admin extends CI_Controller
 	public function delete($slug, $slug2)
 	{
 		$this->admin_model->deleteCategory($slug, $slug2);
-
 	}
 
 	private function getAndSeparateCategories()
