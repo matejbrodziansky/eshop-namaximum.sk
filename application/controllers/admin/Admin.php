@@ -46,8 +46,7 @@ class Admin extends CI_Controller
 
 		if ($post = $this->input->post()) {
 
-		 $_id =	$this->admin_model->insertCategoryOrProduct($post['category'], $post);
-
+			$_id =	$this->admin_model->insertCategoryOrProduct($post['category'], $post);
 		}
 
 
@@ -61,7 +60,11 @@ class Admin extends CI_Controller
 	}
 
 
+	public function delete($slug, $slug2)
+	{
+		$this->admin_model->deleteCategory($slug, $slug2);
 
+	}
 
 	private function getAndSeparateCategories()
 	{

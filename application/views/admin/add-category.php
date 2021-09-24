@@ -105,6 +105,8 @@
 
 
 <script>
+    
+    // CREATE CATEGORY OR SUBCATEGORY
     $('form').submit(function(e) {
 
         var createUrl = '<?= base_url('admin/create') ?>',
