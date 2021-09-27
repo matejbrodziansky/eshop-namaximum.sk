@@ -74,4 +74,9 @@ a:hover{
 }
 
 
+/* stop bacgroud color */
+.stop-background:hover{
+    background-color: inherit;
+}
+
 

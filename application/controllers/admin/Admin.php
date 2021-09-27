@@ -13,7 +13,7 @@ class Admin extends CI_Controller
 
 		$this->load->library('ion_auth');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group('admin')) {
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
 
 			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
 			redirect('/', 'refresh');

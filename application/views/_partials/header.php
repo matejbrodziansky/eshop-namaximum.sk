@@ -78,29 +78,32 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <div class="collapse navbar-collapse " id="navbarNavDropdown">
                             <ul class="navbar-nav">
-
 
                                 <!-- Main category -->
                                 <?php foreach ($nav_categories as $nav_category) : ?>
                                     <?php if ($nav_category['navigation_id'] == 0) : ?>
-                                        <?php $new_array[] = $nav_category; ?>
 
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <?= $nav_category['name']; ?>
                                             </a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-                                                <!-- subcategory -->
-                                                <?php foreach ($categories as $category) : ?>
-                                                    <?php if ($nav_category['id'] == $category['parent_id']) : ?>
-                                                        <a class="dropdown-item" href="<?= base_url('kategoria/' . $category['slug'] . '') ?>">
-                                                            <?= $category['name']; ?>
-                                                        </a>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
+                                            <div class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+                                                <ul class="dropdown-item  stop-background list-unstyled d-md-inline-flex">
+                                                    <?php foreach ($categories as $category) : ?>
+                                                        <?php if ($nav_category['id'] == $category['parent_id']) : ?>
+                                                            <li>
+                                                                <a class="dropdown-itemm show-category-of-products" href="<?= base_url('kategoria/' . $category['slug'] . '') ?>">
+                                                                    <?= $category['name']; ?>
+                                                                </a>
+                                                                <?php foreach ($category['subcategory'] as $subcategory) : ?>
+                                                                    <p style="margin: 0;"><a href="<?= base_url('kategoria/proteiny/' . $subcategory['slug'] . '') ?>"> <?= $subcategory['name'] ?></a></p>
+                                                                <?php endforeach; ?>
+                                                            </li>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </ul>
                                             </div>
                                         </li>
                                     <?php endif; ?>

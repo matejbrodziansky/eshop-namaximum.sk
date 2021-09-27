@@ -12,7 +12,7 @@ class Main extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->load->helper(['url', 'typography', 'global', 'file']);
 
 		$this->load->model('main_model');
@@ -33,17 +33,24 @@ class Main extends CI_Controller
 
 
 
-	public function productsCategory($slug)
+	public function productsCategory($slug, $slug2 = null)
 	{
 
 		$all_categories = $this->getAndSeparateCategories();
 
+		if (isset($slug2) && !empty($slug2)) {
+			$data['products'] = $this->main_model->getProductsBySlug($slug2);
+		} else {
+			$data['products'] =	$this->main_model->getProducts($slug);
+		}
+
+
+
 		$data['nav_categories'] = $all_categories['nav_categories'];
 		$data['categories'] = $all_categories['categories'];
-		$data['products'] = $slug;
 
 		$this->load->view('_partials/header', $data);
-		$this->load->view('products/category', $data);
+		$this->load->view('products/products', $data);
 	}
 
 
@@ -52,12 +59,26 @@ class Main extends CI_Controller
 	{
 
 		$all_categories = $this->main_model->getCategories();
+		$sub_categories = $this->main_model->getSubCategories();
 
-		foreach ($all_categories as $category) {
+
+		//Separate to navbar category(supplements,clothes) and category after dropwdown (amino acids, proteins)
+		foreach ($all_categories as $key => $category) {
 			if ($category['navigation_id'] == 0) {
 				$navigation_categories[] = $category;
 			} else {
 				$categories[] = $category;
+			}
+		}
+
+
+		// Set to catategory subcategory like Proteins(type of proteins like night, whey)
+		foreach ($categories as $key => $category) {
+			$categories[$key]['subcategory'] = [];
+			foreach ($sub_categories as $key_two => $sub_category) {
+				if ($category['id'] == $sub_category['parent_id']) {
+					$categories[$key]['subcategory'][] = $sub_category;
+				}
 			}
 		}
 
@@ -69,11 +90,8 @@ class Main extends CI_Controller
 
 	public function create()
 	{
-		// if(isset($_POST)){
 
 		if ($post = $this->input->post()) {
-
-			pre_r($post);
 		}
 
 

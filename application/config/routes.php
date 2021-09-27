@@ -63,4 +63,5 @@ $route['admin/delete/(:any)/(:num)'] = 'admin/Admin/delete/$1/$2';
 
 //Public
 $route['kategoria/(:any)'] = 'Main/productsCategory/$1';
+$route['kategoria/(:any)/(:any)'] = 'Main/productsCategory/$1/$2';
 
