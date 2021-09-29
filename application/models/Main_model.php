@@ -3,6 +3,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Main_model extends CI_Model
 {
+
     public function getCategories()
     {
         return $this->db->select('*')
@@ -18,21 +19,43 @@ class Main_model extends CI_Model
             ->get()
             ->result_array();
     }
-    
-        public function getProducts()
-        {
-            return $this->db->select('*')
-            ->from('products')
+
+    public function getProductsBySubcategory($slug)
+    {
+        return $this->db->select('*')
+            ->from('product')
+            ->where('subcategory', $slug)
             ->get()
             ->result_array();
-        }
+    }
 
-    public function getProductsBySlug($slug)
+
+    public function getProducts($slug)
+    {
+
+        return $this->db->select('*')
+            ->from('product')
+            ->where('slug', $slug)
+            ->get()
+            ->result_array();
+    }
+
+    public function getProduct($id)
     {
 
         return $this->db->select('*')
             ->from('products')
-            ->where('slug',$slug)
+            ->where('id', $id)
+            ->get()
+            ->result_array();
+    }
+
+    public function getCartProducts($id)
+    {
+
+        return $this->db->select('*')
+            ->from('product')
+            ->where('id', $id)
             ->get()
             ->result_array();
     }

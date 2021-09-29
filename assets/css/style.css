@@ -54,6 +54,13 @@ a:hover{
     background: #ccc;
 }
 
+#cart_count{
+    text-align: center;
+    padding: 0 0.9em 0.1em 0.9em;
+    border-radius: 3em;
+
+}
+
 /* NAVIGATION */
 
 .navigation {

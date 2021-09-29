@@ -24,7 +24,7 @@
 </div>
 
 
-<div class="col container mt-4 mb-5">
+<div style="background-color: #ccc;" class="col container mt-4 mb-5">
 
     <h1>Add Category</h1>
     <div class="container">
@@ -48,12 +48,28 @@
             </div>
         </div>
     </div>
+
     <form method="post">
 
         <div class="form-group">
-            <label for="exampleFormControlInput1">Navigation Id</label>
-            <input type="text" class="form-control" name="navigation_id" id="exampleFormControlInput1">
+            <label for="exampleFormControlInput1">In main navbar ?</label>
+            <select name="navigation_id" id="">
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+            </select>
         </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Parent Id</label>
+            <select name="parent_id" id="">
+                <option default value="0">none</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
         <div class="form-group">
             <label for="exampleFormControlInput1">Name</label>
             <input type="text" class="form-control" name="name" id="exampleFormControlInput1">
@@ -62,19 +78,16 @@
             <label for="exampleFormControlInput1">Slug</label>
             <input type="text" class="form-control" name="slug" id="exampleFormControlInput1">
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Parent id</label>
-            <input type="text" class="form-control" name="parent_id" id="exampleFormControlInput1">
-        </div>
+    
+
         <input type="hidden" class="form-control" name="category" id="exampleFormControlInput1" value="category">
 
-        <input type="submit" class="btn btn-success" value="Uložiť" id="formConfirm">
+        <input type="submit" class="btn btn-success mb-3 mt-3" value="Uložiť" id="formConfirm">
 
     </form>
 </div>
 
-
-<div class="col container mt-3">
+<div style="background-color: #ccc;" class="col container mt-3 mb-4">
     <h1>Add Subcategory</h1>
     <form method="post">
         <div class="form-group">
@@ -90,22 +103,47 @@
             <input type="text" class="form-control" name="slug" id="exampleFormControlInput1">
         </div>
 
-        <!-- <div class="form-group">
-            <label for="exampleFormControlFile1">Photo of product</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-        </div> -->
 
         <input type="hidden" class="form-control" name="category" id="exampleFormControlInput1" value="subcategory">
 
-        <input type="submit" class="btn btn-success" value="Uložiť" id="formConfirm">
+        <input type="submit" class="btn btn-success mb-3 mt-3"  value="Uložiť" id="formConfirm">
     </form>
 </div>
+
+
+
+<div style="background-color: #ccc;" class="col container mt-3 mb-4">
+    <h1>Add Product</h1>
+    <form method="post">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Name</label>
+            <input type="text" class="form-control" name="name" id="exampleFormControlInput1">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Text</label>
+            <input type="text" class="form-control" name="text" id="exampleFormControlInput1">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Price</label>
+            <input type="text" class="form-control" name="price" id="exampleFormControlInput1">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Photo of product</label>
+            <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+
+        <input type="hidden" class="form-control" name="product" id="exampleFormControlInput1" value="subcategory">
+
+        <input type="submit" class="btn btn-success mb-3 mt-3" value="Save" id="formConfirm">
+    </form>
+</div>
+
 
 <div class="modal"></div>
 
 
 <script>
-    
     // CREATE CATEGORY OR SUBCATEGORY
     $('form').submit(function(e) {
 
@@ -133,8 +171,7 @@
             data: new FormData(this),
             processData: false,
             contentType: false,
-            success: function(data) {
-            },
+            success: function(data) {},
             error: function(xhr, ajaxOptions, thrownerror) {}
         });
         e.preventDefault();

@@ -8,12 +8,15 @@
 
     <!-- css -->
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800&amp;subset=latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800&amp;subset=latin-ext" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome/fontawesome.min.css">
 
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/boostrap/bootstrap.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/style-cart.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/style.css') ?>" />
+
 
     <!-- script -->
 
@@ -57,9 +60,20 @@
                             </a>
                         </li>
                         <li class="d-inline align-middle">
-                            <a href="<?= base_url('') ?>">
-                                <i style="color: #F86528;" class="fa fa-shopping-basket"><span class="count"></span></i>
-                                <span class="">Košík</span>
+                            <a href="<?= base_url('/cart') ?>">
+                                <i style="color: #F86528;" class="fa fa-shopping-basket"><span class="count"></span></i>Košík
+
+
+                                <?php if (isset($_SESSION['cart'])) : ?>
+                                    <!-- $count = count($_SESSION['cart']); -->
+                                    <span id="cart_count" class="text-warning bg-light"><?= count($_SESSION['cart']); ?></span>
+
+                                <?php else : ?>
+
+                                    <span id="cart_count" class="text-warning bg-light">0</span>
+                                <?php endif ?>
+
+
                             </a>
                         </li>
                     </ul>
@@ -67,6 +81,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- NAVIGATION -->
     <div class="navigation container-fluid">

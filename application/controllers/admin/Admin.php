@@ -5,7 +5,8 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Admin extends CI_Controller
 {
-
+	private $username;
+	private $all_categories;
 
 	function __construct()
 	{
@@ -27,10 +28,7 @@ class Admin extends CI_Controller
 
 	public function index()
 	{
-		$username = $this->session->userdata('username');
-
-
-		pre_r($username);
+		// $username = $this->session->userdata('username');
 
 		$all_categories = $this->getAndSeparateCategories();
 
@@ -59,7 +57,12 @@ class Admin extends CI_Controller
 
 		if ($post = $this->input->post()) {
 
-			$_id =	$this->admin_model->insertCategoryOrProduct($post['category'], $post);
+			$id =	$this->admin_model->insertCategoryOrProduct($post['category'], $post);
+
+			// if(isset($post['file']) && !empty($post['file']) ){
+			// 	pre_r($post);
+			// 	$this->do_upload($post['file']);
+			// }
 		}
 
 
@@ -71,6 +74,28 @@ class Admin extends CI_Controller
 		$this->load->view('_partials/header', $data);
 		$this->load->view('admin/add-category');
 	}
+
+	private function do_upload($file)
+	{
+		$config = array(
+			'upload_path' => "./uploads/",
+			'allowed_types' => "gif|jpg|png|jpeg|pdf",
+			'overwrite' => TRUE,
+			'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+			'max_height' => "768",
+			'max_width' => "1024"
+		);
+		$this->load->library('upload', $config);
+		if ($this->upload->do_upload()) {
+			$data = array('upload_data' => $this->upload->data());
+			// $this->load->view('upload_success', $data);
+		} else {
+			$error = array('error' => $this->upload->display_errors());
+			// $this->load->view('custom_view', $error);
+		}
+	}
+
+
 
 
 	public function delete($slug, $slug2)

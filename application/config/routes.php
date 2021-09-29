@@ -62,6 +62,9 @@ $route['admin/createcategory'] = 'admin/Admin/createcategory';
 $route['admin/delete/(:any)/(:num)'] = 'admin/Admin/delete/$1/$2';
 
 //Public
-$route['kategoria/(:any)'] = 'Main/productsCategory/$1';
-$route['kategoria/(:any)/(:any)'] = 'Main/productsCategory/$1/$2';
+$route['kategoria/(:any)'] = 'Main/showProducts/$1';
+$route['cart'] = 'Main/cart';
+$route['kategoria/product/(:any)'] = 'Main/showProduct/$1';
+$route['kategoria/(:any)/(:any)'] = 'Main/showProducts/$1/$2';
+$route['kategoria/(:any)/(:any)'] = 'Main/showProducts/$1/$2';
 
