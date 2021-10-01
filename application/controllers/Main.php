@@ -33,6 +33,7 @@ class Main extends CI_Controller
 
 		$this->load->view('_partials/header', $data);
 		$this->load->view('home');
+		$this->load->view('_partials/footer');
 	}
 
 
@@ -40,11 +41,6 @@ class Main extends CI_Controller
 	public function showProducts($slug, $slug2 = null)
 	{
 
-		//if item is added to cart
-		if ($post = $this->input->post()) {
-
-			$this->addToCart($post);
-		}
 
 		$all_categories = $this->getAndSeparateCategories();
 
@@ -60,49 +56,48 @@ class Main extends CI_Controller
 
 		$this->load->view('_partials/header', $data);
 		$this->load->view('products/products', $data);
+		$this->load->view('_partials/footer');
 	}
 
-	private function addToCart($post)
+	public function addToCart($id)
 	{
 
 		if (isset($_SESSION['cart'])) {
 
+
 			$item_array_id = array_column($_SESSION['cart'], "product_id");
 
-			if (in_array($post['product_id'], $item_array_id)) {
-				echo "<script>alert('Produkt už je v košíku..!')</script>";
-				echo "<script>window.location = 'index.php'</script>";
+			if (in_array($id, $item_array_id)) {
+				$response['status'] = '1';
 			} else {
 
+				$response['status'] = '2';
 				$count = count($_SESSION['cart']);
 
 				$item_array = array(
-					'product_id' => $post['product_id']
+					'product_id' => $id
 				);
 
 				$_SESSION['cart'][] = $item_array;
 			}
 		} else {
+			$response['status'] = '3';
 
 			$item_array = [
-				'product_id' => $post['product_id']
+				'product_id' => $id
 			];
-
 
 			// Create new session variable
 			$_SESSION['cart'][0] = $item_array;
 		}
+
+
+
+		echo json_encode($response);
 	}
 
 	public function cart()
 	{
-
-
-		if ($post = $this->input->post()) {
-			if (isset($post['remove'])) {
-				$this->deteleFromCart($post['product_id']);
-			}
-		}
 
 		$all_categories = $this->getAndSeparateCategories();
 
@@ -121,6 +116,7 @@ class Main extends CI_Controller
 
 		$this->load->view('_partials/header', $data);
 		$this->load->view('products/cart', $data);
+		$this->load->view('_partials/footer');
 	}
 
 	private function deteleFromCart($post_id)
@@ -133,6 +129,19 @@ class Main extends CI_Controller
 				echo "<script>widnow.location='index.php'</script>";
 			}
 		}
+	}
+
+	public function removeFromCart($product_id)
+	{
+
+		foreach ($_SESSION['cart'] as $key => $value) {
+			if ($value['product_id'] == $product_id) {
+				unset($_SESSION['cart'][$key]);
+				$response['status'] = 1;
+			}
+		}
+
+		echo json_encode($response);
 	}
 
 
@@ -155,6 +164,7 @@ class Main extends CI_Controller
 
 		$this->load->view('_partials/header', $data);
 		$this->load->view('products/product', $data);
+		$this->load->view('_partials/footer');
 	}
 
 

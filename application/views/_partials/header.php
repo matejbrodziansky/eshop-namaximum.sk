@@ -63,7 +63,6 @@
                             <a href="<?= base_url('/cart') ?>">
                                 <i style="color: #F86528;" class="fa fa-shopping-basket"><span class="count"></span></i>Košík
 
-
                                 <?php if (isset($_SESSION['cart'])) : ?>
                                     <!-- $count = count($_SESSION['cart']); -->
                                     <span id="cart_count" class="text-warning bg-light"><?= count($_SESSION['cart']); ?></span>
@@ -72,8 +71,6 @@
 
                                     <span id="cart_count" class="text-warning bg-light">0</span>
                                 <?php endif ?>
-
-
                             </a>
                         </li>
                     </ul>
@@ -129,4 +126,13 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- flash message -->
+
+    <div id="second" class="alert" style="width: 300px; height: 100px; top:100px; right: 50px; z-index:100; position:absolute;">
+        <span class="msg mr-4">
+
+        </span>
+        <a style="position: absolute; top:0; right:0;" class="hide-message btn btn-secondary btn-sm " href="">X</a>
     </div>

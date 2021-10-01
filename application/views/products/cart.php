@@ -59,3 +59,52 @@ require_once('component/component.php')
         </div>
     </div>
 </div>
+
+<script>
+    // add to cart and set count of produtcts in cart
+
+    $('.remove-from-cart').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        _alert = $('.alert');
+        _message = $('.msg');
+        _cartProduct = $(this).closest('.cart-product')
+
+        var _selfVal = $(this).attr('href'),
+            _cartId = $('#cart_count'),
+            _count = parseInt(_cartId.text()),
+            _count = _count - 1;
+
+        $.ajax({
+            url: _selfVal,
+            success: function(response) {
+
+                response = $.parseJSON(response)
+                if (response.status == 1) {
+
+                    _msg = 'Produkt bol odobratý z košíku';
+                    _message.text(_msg);
+                    _cartId.text(_count);
+
+                    _alert.show().addClass('alert-success');
+
+                    _cartProduct.hide();
+                };
+
+                setTimeout(function() {
+                    _alert.fadeOut('fast');
+                }, 3000); // <-- time in milliseconds
+
+            }
+        });
+
+        $('.hide-message').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            _alert.hide();
+        })
+
+    })
+</script>

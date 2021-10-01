@@ -57,7 +57,7 @@ class Admin extends CI_Controller
 
 		if ($post = $this->input->post()) {
 
-			$id =	$this->admin_model->insertCategoryOrProduct($post['category'], $post);
+			$id = $this->admin_model->insertCategoryOrProduct($post['category'], $post);
 
 			// if(isset($post['file']) && !empty($post['file']) ){
 			// 	pre_r($post);
@@ -94,8 +94,6 @@ class Admin extends CI_Controller
 			// $this->load->view('custom_view', $error);
 		}
 	}
-
-
 
 
 	public function delete($slug, $slug2)
