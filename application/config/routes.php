@@ -67,6 +67,7 @@ $route['kategoria/product/(:any)'] = 'Main/showProduct/$1';
 $route['kategoria/product/(:any)'] = 'Main/showProduct/$1';
 $route['kategoria/(:any)/(:any)'] = 'Main/showProducts/$1/$2';
 $route['kategoria/(:any)/(:any)'] = 'Main/showProducts/$1/$2';
+$route['product/details/(:any)'] = 'Main/detailsOfProduct/$1';
 
 //cart
 $route['cart'] = 'Main/cart';

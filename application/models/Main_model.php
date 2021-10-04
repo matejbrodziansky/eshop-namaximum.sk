@@ -40,15 +40,24 @@ class Main_model extends CI_Model
             ->result_array();
     }
 
-    public function getProduct($id)
+    public function getProduct($slug)
     {
 
-        return $this->db->select('*')
-            ->from('products')
-            ->where('id', $id)
+        $data = $this->db->select('*')
+            ->from('product')
+            ->where('slug_two', $slug)
             ->get()
-            ->result_array();
+            ->row_array();
+
+        $data['details'] = $this->db->select('*')
+            ->from('datails_of_product')
+            ->where('parent_id', $data['id'])
+            ->get()
+            ->row_array();
+
+        return $data;
     }
+
 
     public function getCartProducts($id)
     {
@@ -58,5 +67,15 @@ class Main_model extends CI_Model
             ->where('id', $id)
             ->get()
             ->result_array();
+    }
+
+    public function getProductDetails($slug_two)
+    {
+
+        return $this->db->select('*')
+            ->from('product')
+            ->where('slug_two', $slug_two)
+            ->get()
+            ->row_array();
     }
 }

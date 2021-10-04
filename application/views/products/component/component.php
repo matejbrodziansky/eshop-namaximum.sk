@@ -1,6 +1,6 @@
 <?php
 
-function component($productname, $productprice, $productimg, $productid)
+function component($productname, $productprice, $productimg, $productid, $slug_two)
 {
     $element = "
     <div class=\"col-md-3 colsm-6 my-3 my-md-0\">
@@ -27,6 +27,7 @@ function component($productname, $productprice, $productimg, $productid)
                 </h5>
                 
                  <a class=\"btn btn-primary btn-sm add-to-cart\" href=\"" . base_url('product/addtocart/'.$productid.'') . "\">pridať do košíku</a>
+                 <a class=\"btn btn-warning btn-sm \" href=\"" . base_url('product/details/'.$slug_two.'') . "\"> <i class=\"fa fa-search\"> Detaily</i></a>
 
             </div>
         </div>
@@ -56,7 +57,10 @@ function cartElement($productimg, $productname, $productprice, $productid)
                                 <button type=\"button\" class=\"btn bg-light border rounded-circle \"><i class=\"fa fa-minus\"></i></button>
                             </div>
                             <div class=\"col-3\">
-                                <input type=\"text\" value=\"1\" class=\"form-control w-25 \">
+                            <input type=\"text\" value=\"1\" class=\"form-control w-25 \">
+                            </div>
+                            <div class=\"col-4\">
+                                <button type=\"button\" class=\"btn bg-light border rounded-circle \"><i class=\"fa fa-plus\"></i></button>
                             </div>
 
                         </div>

@@ -41,7 +41,6 @@ class Main extends CI_Controller
 	public function showProducts($slug, $slug2 = null)
 	{
 
-
 		$all_categories = $this->getAndSeparateCategories();
 
 		//if slug 2 show products by subcategory, else show all 
@@ -63,7 +62,6 @@ class Main extends CI_Controller
 	{
 
 		if (isset($_SESSION['cart'])) {
-
 
 			$item_array_id = array_column($_SESSION['cart'], "product_id");
 
@@ -119,18 +117,6 @@ class Main extends CI_Controller
 		$this->load->view('_partials/footer');
 	}
 
-	private function deteleFromCart($post_id)
-	{
-
-		foreach ($_SESSION['cart'] as $key => $value) {
-			if ($value['product_id'] == $post_id) {
-				unset($_SESSION['cart'][$key]);
-				echo "<script>alert('Produkt bol odobratý z košíku..!')</script>";
-				echo "<script>widnow.location='index.php'</script>";
-			}
-		}
-	}
-
 	public function removeFromCart($product_id)
 	{
 
@@ -144,30 +130,27 @@ class Main extends CI_Controller
 		echo json_encode($response);
 	}
 
-
-
-	public function showProduct($slug)
+	public function detailsOfProduct($slug)
 	{
+
+		$product = $this->main_model->getProduct($slug);
+
+		//if in db product_discount
+		if (isset($product['product_discount']) && !empty($product['product_discount']) && $product['product_discount'] > 0) {
+			$product['product_old_price'] = $product['product_price'] + $product['product_discount'];
+		}	
 
 		$all_categories = $this->getAndSeparateCategories();
 
-		if (isset($slug) && !empty($slug)) {
-			$data['product'] = $this->main_model->getProduct($slug);
-		} else {
-			$data['product'] =	[];
-		}
-
-
-
 		$data['nav_categories'] = $all_categories['nav_categories'];
 		$data['categories'] = $all_categories['categories'];
+		$data['product_details'] = $product;
+
 
 		$this->load->view('_partials/header', $data);
-		$this->load->view('products/product', $data);
+		$this->load->view('products/product-detail', $data);
 		$this->load->view('_partials/footer');
 	}
-
-
 
 	private function getAndSeparateCategories()
 	{
