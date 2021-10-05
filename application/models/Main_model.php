@@ -78,4 +78,13 @@ class Main_model extends CI_Model
             ->get()
             ->row_array();
     }
+    public function getCoupon($coupon)
+    {
+
+        return $this->db->select('discount')
+            ->from('discount_coupons')
+            ->where('coupon_name', $coupon)
+            ->get()
+            ->row_array();
+    }
 }

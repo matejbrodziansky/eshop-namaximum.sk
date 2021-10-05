@@ -89,8 +89,6 @@ class Main extends CI_Controller
 			$_SESSION['cart'][0] = $item_array;
 		}
 
-
-
 		echo json_encode($response);
 	}
 
@@ -107,6 +105,11 @@ class Main extends CI_Controller
 				$cart_products[] = $this->main_model->getCartProducts($product_id['product_id']);
 			}
 		}
+
+		if (empty($_SESSION['cart'])) {
+			$_SESSION['discount'] =  0;
+		}
+
 
 		$data['cart_products'] = $cart_products;
 		$data['nav_categories'] = $all_categories['nav_categories'];
@@ -130,6 +133,30 @@ class Main extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function discountCoupon($coupon)
+	{
+		if (isset($coupon) && !empty($coupon)) {
+
+			$coupon = $this->main_model->getCoupon($coupon);
+
+			$discount = $coupon['discount'];
+
+			if ($coupon > 0) {
+				$response['status'] = 1;
+				$response['discount'] = $discount;
+
+				$_SESSION['discount'] = $discount;
+			} else {
+
+				$response['status'] = 0;
+			}
+
+			echo json_encode($response);
+		} else {
+			$response['status'] = '0';
+		}
+	}
+
 	public function detailsOfProduct($slug)
 	{
 
@@ -138,7 +165,7 @@ class Main extends CI_Controller
 		//if in db product_discount
 		if (isset($product['product_discount']) && !empty($product['product_discount']) && $product['product_discount'] > 0) {
 			$product['product_old_price'] = $product['product_price'] + $product['product_discount'];
-		}	
+		}
 
 		$all_categories = $this->getAndSeparateCategories();
 

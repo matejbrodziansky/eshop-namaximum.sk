@@ -49,7 +49,7 @@ function cartElement($productimg, $productname, $productprice, $productid)
                     <div class=\"col-md-6\">
                         <h5 class=\"pt-2\">$productname</h5>
                         <small class=\"text-secondary\">Seller: namaximum</small>
-                        <h5 class=\"pt-2\">$productprice €</h5>
+                        <h5 class=\"pt-2 product-price\">$productprice €</h5>
                         <a class=\"btn btn-danger btn-sm remove-from-cart\" href=\"" . base_url('product/removefromcart/'.$productid.'') . "\">Odobrať z košíku</a>                    </div>
                     <div class=\"col-md-3 py-5\">
                         <div class=\"row\">
